@@ -7,42 +7,42 @@
 // ========================================
 
 // Navbar scroll effect
-const navbar = document.getElementById('navbar');
-const navLinks = document.querySelectorAll('.nav-link');
+const navbar = document.getElementById("navbar");
+const navLinks = document.querySelectorAll(".nav-link");
 
-window.addEventListener('scroll', () => {
+window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
-    navbar.classList.add('scrolled');
+    navbar.classList.add("scrolled");
   } else {
-    navbar.classList.remove('scrolled');
+    navbar.classList.remove("scrolled");
   }
-  
+
   // Update active nav link based on scroll position
   updateActiveNavLink();
 });
 
 // Mobile menu toggle
-const navToggle = document.getElementById('navToggle');
-const navMenu = document.getElementById('navMenu');
+const navToggle = document.getElementById("navToggle");
+const navMenu = document.getElementById("navMenu");
 
-navToggle.addEventListener('click', () => {
-  navToggle.classList.toggle('active');
-  navMenu.classList.toggle('active');
+navToggle.addEventListener("click", () => {
+  navToggle.classList.toggle("active");
+  navMenu.classList.toggle("active");
 });
 
 // Close mobile menu when clicking on a link
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    navToggle.classList.remove('active');
-    navMenu.classList.remove('active');
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    navToggle.classList.remove("active");
+    navMenu.classList.remove("active");
   });
 });
 
 // Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
+document.addEventListener("click", (e) => {
   if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-    navToggle.classList.remove('active');
-    navMenu.classList.remove('active');
+    navToggle.classList.remove("active");
+    navMenu.classList.remove("active");
   }
 });
 
@@ -51,22 +51,22 @@ document.addEventListener('click', (e) => {
 // ========================================
 
 function updateActiveNavLink() {
-  const sections = document.querySelectorAll('.section, .hero');
-  let currentSection = '';
-  
-  sections.forEach(section => {
+  const sections = document.querySelectorAll(".section, .hero");
+  let currentSection = "";
+
+  sections.forEach((section) => {
     const sectionTop = section.offsetTop;
     const sectionHeight = section.clientHeight;
-    
+
     if (window.scrollY >= sectionTop - 200) {
-      currentSection = section.getAttribute('id');
+      currentSection = section.getAttribute("id");
     }
   });
-  
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === `#${currentSection}`) {
-      link.classList.add('active');
+
+  navLinks.forEach((link) => {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === `#${currentSection}`) {
+      link.classList.add("active");
     }
   });
 }
@@ -75,17 +75,17 @@ function updateActiveNavLink() {
 // SMOOTH SCROLL
 // ========================================
 
-navLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
+navLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
     e.preventDefault();
-    const targetId = link.getAttribute('href');
+    const targetId = link.getAttribute("href");
     const targetSection = document.querySelector(targetId);
-    
+
     if (targetSection) {
       const offsetTop = targetSection.offsetTop - 80;
       window.scrollTo({
         top: offsetTop,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   });
@@ -97,16 +97,16 @@ navLinks.forEach(link => {
 
 const observerOptions = {
   threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
+  rootMargin: "0px 0px -50px 0px",
 };
 
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      
+      entry.target.classList.add("visible");
+
       // Animate skill bars when they come into view
-      if (entry.target.classList.contains('skill-category')) {
+      if (entry.target.classList.contains("skill-category")) {
         animateSkillBars(entry.target);
       }
     }
@@ -114,8 +114,8 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe all fade-in elements
-const fadeElements = document.querySelectorAll('.fade-in');
-fadeElements.forEach(element => {
+const fadeElements = document.querySelectorAll(".fade-in");
+fadeElements.forEach((element) => {
   observer.observe(element);
 });
 
@@ -124,12 +124,12 @@ fadeElements.forEach(element => {
 // ========================================
 
 function animateSkillBars(skillCategory) {
-  const skillBars = skillCategory.querySelectorAll('.skill-progress');
-  
+  const skillBars = skillCategory.querySelectorAll(".skill-progress");
+
   skillBars.forEach((bar, index) => {
     const targetWidth = bar.style.width;
-    bar.style.width = '0%';
-    
+    bar.style.width = "0%";
+
     setTimeout(() => {
       bar.style.width = targetWidth;
     }, index * 100);
@@ -142,8 +142,8 @@ function animateSkillBars(skillCategory) {
 
 function typeWriter(element, text, speed = 100) {
   let i = 0;
-  element.textContent = '';
-  
+  element.textContent = "";
+
   function type() {
     if (i < text.length) {
       element.textContent += text.charAt(i);
@@ -151,7 +151,7 @@ function typeWriter(element, text, speed = 100) {
       setTimeout(type, speed);
     }
   }
-  
+
   type();
 }
 
@@ -168,26 +168,29 @@ function typeWriter(element, text, speed = 100) {
 // CONTACT FORM HANDLING
 // ========================================
 
-const contactForm = document.getElementById('contactForm');
+const contactForm = document.getElementById("contactForm");
 
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  
+
   // Get form data
   const formData = {
-    name: document.getElementById('name').value,
-    email: document.getElementById('email').value,
-    subject: document.getElementById('subject').value,
-    message: document.getElementById('message').value
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    subject: document.getElementById("subject").value,
+    message: document.getElementById("message").value,
   };
-  
+
   // Here you would typically send the data to a server
   // For now, we'll just show a success message
-  console.log('Form submitted:', formData);
-  
+  console.log("Form submitted:", formData);
+
   // Show success message
-  showNotification('Pesan berhasil dikirim! Terima kasih telah menghubungi saya.', 'success');
-  
+  showNotification(
+    "Pesan berhasil dikirim! Terima kasih telah menghubungi saya.",
+    "success",
+  );
+
   // Reset form
   contactForm.reset();
 });
@@ -196,9 +199,9 @@ contactForm.addEventListener('submit', (e) => {
 // NOTIFICATION SYSTEM
 // ========================================
 
-function showNotification(message, type = 'info') {
+function showNotification(message, type = "info") {
   // Create notification element
-  const notification = document.createElement('div');
+  const notification = document.createElement("div");
   notification.className = `notification notification-${type}`;
   notification.style.cssText = `
     position: fixed;
@@ -215,22 +218,22 @@ function showNotification(message, type = 'info') {
     max-width: 400px;
     animation: slideInRight 0.3s ease-out;
   `;
-  
+
   // Add icon based on type
-  const icon = type === 'success' ? '✓' : 'ℹ';
+  const icon = type === "success" ? "✓" : "ℹ";
   notification.innerHTML = `
     <div style="display: flex; align-items: center; gap: var(--spacing-md);">
       <span style="font-size: var(--font-size-2xl); color: var(--color-accent-primary);">${icon}</span>
       <span>${message}</span>
     </div>
   `;
-  
+
   // Add to body
   document.body.appendChild(notification);
-  
+
   // Remove after 5 seconds
   setTimeout(() => {
-    notification.style.animation = 'slideOutRight 0.3s ease-out';
+    notification.style.animation = "slideOutRight 0.3s ease-out";
     setTimeout(() => {
       notification.remove();
     }, 300);
@@ -238,7 +241,7 @@ function showNotification(message, type = 'info') {
 }
 
 // Add notification animations to CSS dynamically
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
   @keyframes slideInRight {
     from {
@@ -268,13 +271,13 @@ document.head.appendChild(style);
 // PARALLAX EFFECT (Optional Enhancement)
 // ========================================
 
-window.addEventListener('scroll', () => {
+window.addEventListener("scroll", () => {
   const scrolled = window.scrollY;
-  const heroContent = document.querySelector('.hero-content');
-  
+  const heroContent = document.querySelector(".hero-content");
+
   if (heroContent && scrolled < window.innerHeight) {
     heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-    heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
+    heroContent.style.opacity = 1 - scrolled / window.innerHeight;
   }
 });
 
@@ -282,19 +285,26 @@ window.addEventListener('scroll', () => {
 // INITIALIZE
 // ========================================
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Portfolio website loaded successfully! 🚀');
-  
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Portfolio website loaded successfully! 🚀");
+
   // Set initial active nav link
   updateActiveNavLink();
-  
+
+  // Update copyright year automatically
+  const currentYearElement = document.getElementById("currentYear");
+  if (currentYearElement) {
+    const currentYear = new Date().getFullYear();
+    currentYearElement.textContent = currentYear;
+  }
+
   // Add smooth reveal to elements already in view
   setTimeout(() => {
     const viewportHeight = window.innerHeight;
-    fadeElements.forEach(element => {
+    fadeElements.forEach((element) => {
       const rect = element.getBoundingClientRect();
       if (rect.top < viewportHeight) {
-        element.classList.add('visible');
+        element.classList.add("visible");
       }
     });
   }, 100);
@@ -322,4 +332,4 @@ const debouncedScroll = debounce(() => {
   updateActiveNavLink();
 }, 10);
 
-window.addEventListener('scroll', debouncedScroll);
+window.addEventListener("scroll", debouncedScroll);
